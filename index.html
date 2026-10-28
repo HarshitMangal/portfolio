@@ -139,9 +139,9 @@
             </nav>
 
             <div class="flex items-center gap-3">
-                <a href="Harshit_Mangal_Resume.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-mono font-medium transition-all hover:scale-105">
+                <button onclick="toggleResumeModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-mono font-medium transition-all hover:scale-105">
                     <i class="fa-solid fa-file-pdf text-rose-400"></i> Resume
-                </a>
+                </button>
                 <a href="https://github.com/HarshitMangal" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white transition-all">
                     <i class="fa-brands fa-github text-base"></i>
                 </a>
@@ -180,21 +180,22 @@
                     </p>
 
                     <div class="flex flex-wrap items-center gap-4 pt-2">
-                        <a href="Harshit_Mangal_Resume.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all">
-                            <i class="fa-solid fa-file-arrow-down text-sm"></i>
-                            <span>Download Resume</span>
+                        <button onclick="toggleResumeModal()" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all">
+                            <i class="fa-solid fa-file-pdf text-sm"></i>
+                            <span>View Resume</span>
+                        </button>
+                        <a href="https://harshitmangal.github.io/portfolio/Harshit_Mangal_Resume.pdf" download="Harshit_Mangal_Resume.pdf" target="_blank" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-medium text-sm transition-all hover:scale-105">
+                            <i class="fa-solid fa-download text-cyan-400"></i>
+                            <span>Download PDF</span>
                         </a>
-                        <a href="#projects" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-medium text-sm transition-all hover:scale-105">
-                            <span>Explore Projects</span>
+                        <a href="#projects" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-medium text-sm transition-all hover:scale-105">
+                            <span>Projects</span>
                             <i class="fa-solid fa-arrow-right text-xs"></i>
                         </a>
                         <button onclick="copyEmail()" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-medium text-sm transition-all hover:scale-105">
                             <i class="fa-regular fa-copy text-cyan-400"></i>
                             <span id="copy-email-text">Copy Email</span>
                         </button>
-                        <a href="https://leetcode.com/u/Harshit_mangal/" target="_blank" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 font-mono text-xs transition-all">
-                            <i class="fa-solid fa-code"></i> LeetCode 1,440+
-                        </a>
                     </div>
                 </div>
 
@@ -601,6 +602,36 @@
 
     </main>
 
+    <!-- Resume Viewer Modal -->
+    <div id="resume-modal" class="fixed inset-0 z-[100] bg-dark-900/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-card bg-dark-800 border border-slate-700 rounded-2xl w-full max-w-4xl h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-dark-900/60">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-sm">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Harshit_Mangal_Resume.pdf</h3>
+                        <p class="text-xs text-slate-400">Software Engineer | Full Stack & Systems</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="https://harshitmangal.github.io/portfolio/Harshit_Mangal_Resume.pdf" download="Harshit_Mangal_Resume.pdf" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-dark-900 font-bold text-xs transition-all shadow-md">
+                        <i class="fa-solid fa-download"></i> Download
+                    </a>
+                    <button onclick="toggleResumeModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark text-base"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Modal PDF Frame -->
+            <div class="flex-1 bg-dark-900 relative">
+                <iframe src="https://harshitmangal.github.io/portfolio/Harshit_Mangal_Resume.pdf" class="w-full h-full border-none" title="Harshit Mangal Resume"></iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500 font-mono">
         <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -685,6 +716,20 @@ Passionate about low-latency systems, graph algorithms, and Generative AI applic
 
                 terminalInput.value = '';
                 terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+        });
+
+        // Resume Modal Toggle
+        function toggleResumeModal() {
+            const modal = document.getElementById('resume-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('resume-modal');
+                if (!modal.classList.contains('hidden')) modal.classList.add('hidden');
             }
         });
 
