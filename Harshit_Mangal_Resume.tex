@@ -1,0 +1,147 @@
+\documentclass[10pt,a4paper]{article}
+
+% ---------- Packages ----------
+\usepackage[margin=0.6in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+
+% ---------- Formatting ----------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% Section title formatting with clean line separator
+\titleformat{\section}
+  {\large\bfseries}
+  {}
+  {0em}
+  {}
+  [\vspace{-2pt}\titlerule]
+
+\titlespacing{\section}{0pt}{12pt}{5pt}
+
+% List item formatting (proper item & top spacing)
+\setlist[itemize]{
+    leftmargin=1.2em,
+    itemsep=2.5pt,
+    topsep=3pt,
+    parsep=0pt
+}
+
+% ---------- Custom Commands (Fixed vertical mode spacing) ----------
+\newcommand{\resumeProject}[2]{%
+    \par\vspace{6pt}%
+    \textbf{#1} \hfill {\small #2}\par\vspace{2pt}%
+}
+
+\newcommand{\resumeSubheading}[4]{%
+    \par\vspace{5pt}%
+    \textbf{#1} \hfill {\small #2}\\
+    \textit{#3} \hfill {\small #4}\par\vspace{3pt}%
+}
+
+\begin{document}
+
+% ---------- Header ----------
+\begin{center}
+    {\LARGE \textbf{Harshit Mangal}} \\[6pt]
+
+    \small
+    +91-7413021531 \;|\;
+    \href{mailto:mangalharsh54@gmail.com}{mangalharsh54@gmail.com}
+    \;|\;
+    \href{https://harshitmangal.github.io/portfolio/}{Portfolio}
+    \;|\;
+    \href{https://linkedin.com/in/harshit-mangal}{LinkedIn}
+    \;|\;
+    \href{https://github.com/HarshitMangal}{GitHub}
+    \;|\;
+    \href{https://leetcode.com/u/Harshit_mangal/}{LeetCode}
+\end{center}
+
+\vspace{-4pt}
+
+% ---------- Education ----------
+\section*{Education}
+
+\resumeSubheading
+{MBM University}{Aug. 2023 -- May 2027}
+{Bachelor of Technology in Information Technology --- CGPA: 7.2}
+{Jodhpur, Rajasthan}
+
+% ---------- Projects ----------
+\section*{Projects}
+
+\resumeProject{ShopSphere --- AI-Driven B2C E-Commerce Platform}{2026}
+\textit{React, Node.js, Express, MongoDB, Socket.io, Redis, Redux}
+\begin{itemize}
+    \item Developed a full-stack e-commerce platform with an AI chatbot using Google Gemini and LangChain for product queries and language translation.
+    
+    \item Built real-time customer support chat using Socket.io and implemented Redis caching for faster response times.
+    
+    \item Integrated secure payment gateways (Razorpay, PayPal) with multi-currency support and user authentication using JWT/OAuth.
+\end{itemize}
+
+\resumeProject{AI Document Assistant (Offline RAG)}{2026}
+\textit{Python, Streamlit, Ollama (LLaMA 3.2), FAISS, SentenceTransformers, EasyOCR, PyMuPDF}
+\begin{itemize}
+    \item Built a 100\% offline document Q\&A system using local LLMs (Ollama LLaMA 3.2) and FAISS vector database to ensure data privacy.
+    
+    \item Created a document parser supporting PDF, Word documents, and images using PyMuPDF and EasyOCR.
+    
+    \item Implemented fast semantic vector search to answer user queries accurately without relying on external APIs.
+\end{itemize}
+
+\resumeProject{Wanderlust --- Geospatial Rental Booking SaaS}{2025}
+\textit{React, Node.js, Express, MongoDB, Socket.io, Mapbox GL JS, Cloudinary}
+\begin{itemize}
+    \item Developed a rental property booking web app using React, Node.js, Express, and MongoDB with secure user authentication.
+    
+    \item Integrated Mapbox GL JS for interactive map locations, property search, and real-time messaging between guests and hosts via Socket.io.
+    
+    \item Implemented image upload and optimization pipelines using Cloudinary to improve page loading speed.
+\end{itemize}
+
+% ---------- Experience ----------
+\section*{Experience}
+
+\resumeSubheading
+{Frontend Web Development Intern}{June 2025 -- July 2025}
+{CodTech IT Solutions Pvt. Ltd.}{Remote}
+\begin{itemize}
+    \item Independently built 3 projects: a chat application, an interactive quiz app, and a e-learning platform UI within a 2-month timeline.
+    
+    \item Implemented cross-browser compatible, mobile-first UI components using HTML, CSS, and JavaScript; integrated REST APIs and followed Git collaborative workflows.
+\end{itemize}
+
+% ---------- Technical Skills ----------
+\section*{Technical Skills}
+
+\par\vspace{4pt}
+\textbf{Languages:} Python, C++, C, Java, JavaScript, SQL \par\vspace{4pt}
+\textbf{Web \& Frameworks:} HTML, CSS, React, Node.js, Express, Streamlit, Tailwind CSS, EJS, Mongoose, JWT, Socket.io \par\vspace{4pt}
+\textbf{Databases \& Tools:} SQLite, MySQL, MongoDB, Redis, Git, GitHub, Docker (Basics), Postman, Render, Vercel, Heroku, Linux \par\vspace{4pt}
+\textbf{CS Fundamentals:} Data Structures \& Algorithms, OOPs, DBMS, Operating Systems, RESTful APIs, MVC Architecture
+
+% ---------- Achievements ----------
+\section*{Achievements}
+
+\begin{itemize}
+    \item \textbf{\href{https://leetcode.com/u/Harshit_mangal/}{LeetCode Knight}:} Earned Knight Badge with rating 1905--1931 (Top 3.8\% globally, 1350+ solved).
+    \item \textbf{\href{https://auth.geeksforgeeks.org/user/harshitmangal}{GeeksforGeeks College Rank 1}:} Ranked \#1 across MBM University (1100+ problems solved).
+    \item \textbf{\href{https://www.wemakedevs.org/certificates/VA2N7YMWDX}{Winner --- Environmental Hacks}:} Winner at Environmental Hacks (WeMakeDevs \& AWS) for cloud-native environmental tracking.
+    \item \textbf{Amazon ML Challenge:} Secured All India Rank 165 competing against nationwide engineering teams.
+\end{itemize}
+
+% ---------- Certifications ----------
+\section*{Certifications}
+
+\begin{itemize}
+    \item \href{https://media.geeksforgeeks.org/courses/certificates/22a599fc4a5676f802aa4a2ee4cc3c7f.pdf}{160 Days of Problem Solving} --- GeeksforGeeks (2025)
+    \item \href{https://www.hackerrank.com/certificates/227251652361}{Problem Solving (Intermediate)} \& \href{https://www.hackerrank.com/certificates/9fe36f33fe64}{Problem Solving (Basic)} --- HackerRank (2026)
+\end{itemize}
+
+\end{document}
