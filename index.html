@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harshit Mangal — Systems & Full-Stack Software Engineer</title>
+    <meta name="description" content="Portfolio of Harshit Mangal: LeetCode Knight (Rating 1950+), Amazon ML AIR 165, AWS Hackathon Winner. Building High-Performance Web & AI Systems.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#06080F',
+                            800: '#0C101D',
+                            700: '#141A2E',
+                            600: '#1E2640',
+                        },
+                        accent: {
+                            blue: '#38BDF8',
+                            cyan: '#06B6D4',
+                            purple: '#A855F7',
+                            emerald: '#10B981',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { opacity: '0.4', filter: 'blur(20px)' },
+                            '100%': { opacity: '0.8', filter: 'blur(35px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #06080F; }
+        ::-webkit-scrollbar-thumb { background: #1E2640; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #38BDF8; }
+
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(12, 16, 29, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.15);
+        }
+
+        /* Text gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #F8FAFC 0%, #94A3B8 50%, #38BDF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-cyan {
+            background: linear-gradient(135deg, #38BDF8 0%, #06B6D4 50%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Badge glow */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, #38BDF8, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .stat-card:hover::before { opacity: 1; }
+    </style>
+</head>
+<body class="bg-dark-900 text-slate-300 font-sans antialiased selection:bg-cyan-500 selection:text-black relative overflow-x-hidden min-h-screen">
+
+    <!-- Ambient Glow Orbs -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full animate-glow pointer-events-none -z-10"></div>
+    <div class="fixed top-1/3 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full animate-glow pointer-events-none -z-10" style="animation-delay: 1.5s;"></div>
+    <div class="fixed inset-0 bg-grid pointer-events-none -z-20"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-dark-900/80 border-b border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-mono font-bold text-sm shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+                    HM
+                </div>
+                <span class="font-mono text-sm tracking-wide font-semibold text-slate-200 group-hover:text-cyan-400 transition-colors">harshit.dev</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-400">
+                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                <a href="#achievements" class="hover:text-cyan-400 transition-colors">Achievements</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+                <a href="#terminal" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-mono text-xs px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/50 text-slate-300">
+                    <i class="fa-solid fa-terminal text-cyan-400"></i> CLI Mode
+                </a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="https://github.com/HarshitMangal" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white transition-all">
+                    <i class="fa-brands fa-github text-base"></i>
+                </a>
+                <a href="https://linkedin.com/in/harshit-mangal" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-white transition-all">
+                    <i class="fa-brands fa-linkedin text-base"></i>
+                </a>
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-dark-900 font-semibold text-xs tracking-wide uppercase transition-all shadow-lg shadow-cyan-500/20 hover:scale-105">
+                    Let's Talk
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-20 max-w-6xl mx-auto px-6 space-y-28">
+
+        <!-- Hero Section -->
+        <section id="about" class="relative pt-6">
+            <!-- Availability Pill -->
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium mb-6">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Open for Software Engineering Internships & Roles (2025/2026)</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-8 space-y-6">
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Hi, I'm <span class="text-gradient-cyan">Harshit Mangal</span>.
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-slate-300 font-medium">
+                        Building High-Performance Systems, Distributed Engines & AI-Driven Platforms.
+                    </p>
+                    <p class="text-slate-400 text-base leading-relaxed max-w-2xl">
+                        Information Technology undergrad at <strong class="text-slate-200">MBM University</strong>. 
+                        Top <strong class="text-cyan-400">5% globally on LeetCode (Knight, 1950+)</strong> with a focus on graph algorithms, 
+                        OS concurrency, multi-threaded C++ engines, in-memory caching with Redis, and Offline GenAI / RAG architectures.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all">
+                            <span>Explore Projects</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                        <button onclick="copyEmail()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-medium text-sm transition-all hover:scale-105">
+                            <i class="fa-regular fa-copy text-cyan-400"></i>
+                            <span id="copy-email-text">Copy Email</span>
+                        </button>
+                        <a href="https://leetcode.com/u/Harshit_mangal/" target="_blank" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 font-mono text-xs transition-all">
+                            <i class="fa-solid fa-code"></i> LeetCode 1950+
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Badge Showcase Card -->
+                <div class="lg:col-span-4">
+                    <div class="glass-card rounded-2xl p-6 relative overflow-hidden border border-slate-700/80">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-cyan-500/30">
+                                    HM
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-white text-base">Harshit Mangal</h3>
+                                    <p class="text-xs text-slate-400 font-mono">B.Tech IT @ MBM '27</p>
+                                </div>
+                            </div>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50"></span>
+                        </div>
+
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+                                <span class="text-slate-400">LeetCode Rating:</span>
+                                <span class="text-amber-400 font-bold">1950+ (Knight)</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+                                <span class="text-slate-400">DSA Solved:</span>
+                                <span class="text-cyan-400 font-bold">500+ Problems</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+                                <span class="text-slate-400">GFG College Rank:</span>
+                                <span class="text-emerald-400 font-bold">#1 Leaderboard</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+                                <span class="text-slate-400">Amazon ML Rank:</span>
+                                <span class="text-purple-400 font-bold">AIR 165</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-1.5">
+                                <span class="text-slate-400">AWS Hackathon:</span>
+                                <span class="text-cyan-300 font-bold">🏆 Winner</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Grid -->
+        <section id="achievements" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Competitive Milestones & Honors</h2>
+                    <p class="text-slate-400 text-sm mt-1">Proven execution in high-stakes algorithmic challenges and nationwide hackathons.</p>
+                </div>
+                <div class="font-mono text-xs text-cyan-400 flex items-center gap-1">
+                    <i class="fa-solid fa-chart-line"></i> Top 5% Global Algorithmic Standing
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- Stat 1 -->
+                <div class="glass-card stat-card rounded-2xl p-6 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono uppercase tracking-wider text-amber-400 font-semibold bg-amber-400/10 px-2.5 py-1 rounded-md border border-amber-400/20">LeetCode</span>
+                        <i class="fa-solid fa-chess-knight text-xl text-amber-400"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="text-3xl font-extrabold text-white font-mono">1950+</div>
+                        <div class="text-sm font-semibold text-slate-300">Knight Badge</div>
+                        <p class="text-xs text-slate-400 leading-normal mt-1">Ranked in the top 3-5% globally with 500+ problems solved.</p>
+                    </div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="glass-card stat-card rounded-2xl p-6 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-semibold bg-emerald-400/10 px-2.5 py-1 rounded-md border border-emerald-400/20">GeeksforGeeks</span>
+                        <i class="fa-solid fa-ranking-star text-xl text-emerald-400"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="text-3xl font-extrabold text-white font-mono">#1 Rank</div>
+                        <div class="text-sm font-semibold text-slate-300">College Leaderboard</div>
+                        <p class="text-xs text-slate-400 leading-normal mt-1">Ranked #1 at MBM University in problem-solving points.</p>
+                    </div>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="glass-card stat-card rounded-2xl p-6 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono uppercase tracking-wider text-purple-400 font-semibold bg-purple-400/10 px-2.5 py-1 rounded-md border border-purple-400/20">Amazon ML</span>
+                        <i class="fa-solid fa-brain text-xl text-purple-400"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="text-3xl font-extrabold text-white font-mono">AIR 165</div>
+                        <div class="text-sm font-semibold text-slate-300">Amazon ML Challenge</div>
+                        <p class="text-xs text-slate-400 leading-normal mt-1">All-India Rank 165 among thousands of competitive teams.</p>
+                    </div>
+                </div>
+
+                <!-- Stat 4 -->
+                <div class="glass-card stat-card rounded-2xl p-6 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold bg-cyan-400/10 px-2.5 py-1 rounded-md border border-cyan-400/20">AWS Cloud</span>
+                        <i class="fa-solid fa-trophy text-xl text-cyan-400"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="text-3xl font-extrabold text-white font-mono">Winner</div>
+                        <div class="text-sm font-semibold text-slate-300">AWS Environment Hackathon</div>
+                        <p class="text-xs text-slate-400 leading-normal mt-1">Engineered top-ranked sustainability platform on AWS.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects Section -->
+        <section id="projects" class="space-y-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Engineering Projects</h2>
+                    <p class="text-slate-400 text-sm mt-1">Production architectures integrating Graph DSA, OS Concurrency, WebSockets & Local LLMs.</p>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full text-xs font-mono bg-slate-800 text-slate-300 border border-slate-700">Production-Ready</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- Project 1: SmartRoute (FLAGSHIP) -->
+                <div class="glass-card rounded-2xl p-8 border border-cyan-500/20 relative overflow-hidden group">
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/20 transition-all"></div>
+                    
+                    <div class="flex flex-col lg:flex-row gap-8 justify-between">
+                        <div class="space-y-4 max-w-3xl">
+                            <div class="flex items-center gap-3">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">FLAGSHIP SYSTEM</span>
+                                <span class="text-xs text-slate-500 font-mono">High-Performance Logistics</span>
+                            </div>
+
+                            <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                                SmartRoute — Intelligent Multi-Vehicle Route Optimization & Real-Time Telematics
+                            </h3>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                High-performance logistics platform architected with a decoupled <strong>multi-threaded C++14 engine</strong> communicating via OS anonymous pipes for graph traversal. Integrated with <strong>Redis in-memory caching</strong> achieving sub-millisecond (<strong class="text-emerald-400">&lt;1ms</strong>) response latencies and full-duplex <strong>WebSockets (10 Hz)</strong> for real-time fleet GPS tracking.
+                            </p>
+
+                            <!-- Key Technical Highlights -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs font-mono">
+                                <div class="bg-dark-900/80 p-3 rounded-lg border border-slate-800">
+                                    <span class="text-slate-400 block mb-1">⚡ Core Latency:</span>
+                                    <span class="text-emerald-400 font-bold">&lt; 1ms (Redis LRU Cache)</span>
+                                </div>
+                                <div class="bg-dark-900/80 p-3 rounded-lg border border-slate-800">
+                                    <span class="text-slate-400 block mb-1">🔄 OS Concurrency:</span>
+                                    <span class="text-cyan-400 font-bold">C++ Engine + IPC Pipes</span>
+                                </div>
+                                <div class="bg-dark-900/80 p-3 rounded-lg border border-slate-800">
+                                    <span class="text-slate-400 block mb-1">📡 Telemetry Stream:</span>
+                                    <span class="text-purple-400 font-bold">10 Hz WebSockets</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/60">C++14</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/60">Redis</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/60">React 18</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/60">Node.js</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/60">Socket.io</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/60">MongoDB</span>
+                                <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700/60">Leaflet Maps</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex lg:flex-col justify-start lg:justify-center gap-3 min-w-[160px]">
+                            <a href="https://harshitmangal.github.io/smartroute/" target="_blank" class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-dark-900 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/20">
+                                <span>Live Demo</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                            <a href="https://github.com/HarshitMangal/smartroute" target="_blank" class="flex-1 lg:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs transition-all">
+                                <i class="fa-brands fa-github text-sm"></i>
+                                <span>Source Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 & 3 in 2-Column Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Project 2: Offline Document RAG -->
+                    <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">GenAI & Vector Search</span>
+                                <i class="fa-solid fa-file-shield text-purple-400 text-lg"></i>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-white">AI Document Assistant (100% Offline RAG)</h3>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                Privacy-first document intelligence system running entirely offline without external API dependencies. Integrates local LLMs via <strong>Ollama (LLaMA 3.2)</strong>, <strong>FAISS</strong> for semantic vector embedding search, and <strong>PyMuPDF + EasyOCR</strong> for parsing mixed multi-format documents.
+                            </p>
+
+                            <div class="flex flex-wrap gap-1.5 pt-2">
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">Python</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">LLaMA 3.2</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">FAISS</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">Streamlit</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">SentenceTransformers</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-800/80 mt-6 flex justify-between items-center">
+                            <span class="text-xs font-mono text-emerald-400">● 100% Zero-Leak Privacy</span>
+                            <a href="https://github.com/HarshitMangal" target="_blank" class="text-xs font-medium text-slate-300 hover:text-cyan-400 flex items-center gap-1">
+                                View Repo <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: ShopSphere -->
+                    <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">Full-Stack E-Commerce</span>
+                                <i class="fa-solid fa-cart-shopping text-blue-400 text-lg"></i>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-white">ShopSphere — AI-Driven B2C Commerce</h3>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                Full-stack e-commerce web platform featuring real-time customer support chat with <strong>Socket.io</strong>, an AI shopping assistant powered by <strong>Google Gemini</strong> and <strong>LangChain</strong>, <strong>Redis</strong> session caching, and multi-currency checkout via <strong>Razorpay & PayPal</strong>.
+                            </p>
+
+                            <div class="flex flex-wrap gap-1.5 pt-2">
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">React</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">Node.js</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">Gemini AI</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">Redis</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-mono bg-slate-800/60 text-slate-300 border border-slate-700/50">MongoDB</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-800/80 mt-6 flex justify-between items-center">
+                            <span class="text-xs font-mono text-cyan-400">● Gemini AI + Socket.io</span>
+                            <a href="https://github.com/HarshitMangal" target="_blank" class="text-xs font-medium text-slate-300 hover:text-cyan-400 flex items-center gap-1">
+                                View Repo <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Matrix -->
+        <section id="skills" class="space-y-8">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Technical Stack & Engineering Arsenal</h2>
+                <p class="text-slate-400 text-sm mt-1">Tools and core fundamentals I leverage to design robust systems.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Category 1 -->
+                <div class="glass-card rounded-2xl p-6 border-t-2 border-t-cyan-500">
+                    <div class="flex items-center gap-2 mb-4 text-cyan-400 font-mono text-xs uppercase tracking-wider font-bold">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span>Systems & Core Foundations</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-300 font-mono">
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">C++ (Modern C++14/17)</span> <span class="text-xs text-slate-500">Advanced</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Data Structures & Algo</span> <span class="text-xs text-amber-400">Knight (1950+)</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">OS Concurrency & IPC</span> <span class="text-xs text-slate-500">Pipes / Threading</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Redis In-Memory Caching</span> <span class="text-xs text-emerald-400">&lt;1ms Caching</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Python & Java</span> <span class="text-xs text-slate-500">Proficient</span></li>
+                    </ul>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="glass-card rounded-2xl p-6 border-t-2 border-t-blue-500">
+                    <div class="flex items-center gap-2 mb-4 text-blue-400 font-mono text-xs uppercase tracking-wider font-bold">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>Full-Stack Web Engineering</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-300 font-mono">
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">React 18 & Redux</span> <span class="text-xs text-slate-500">Modern Hooks</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Node.js & Express</span> <span class="text-xs text-slate-500">REST APIs / MVC</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">WebSockets & Socket.io</span> <span class="text-xs text-purple-400">Real-time HUD</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">MongoDB & SQLite</span> <span class="text-xs text-slate-500">NoSQL / SQL</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Tailwind CSS & UI</span> <span class="text-xs text-slate-500">Responsive</span></li>
+                    </ul>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="glass-card rounded-2xl p-6 border-t-2 border-t-purple-500">
+                    <div class="flex items-center gap-2 mb-4 text-purple-400 font-mono text-xs uppercase tracking-wider font-bold">
+                        <i class="fa-solid fa-robot"></i>
+                        <span>AI, Tools & Cloud</span>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-300 font-mono">
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">FAISS Vector Search</span> <span class="text-xs text-slate-500">Semantic Index</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Local LLMs (Ollama)</span> <span class="text-xs text-slate-500">LLaMA 3.2</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">LangChain & Gemini API</span> <span class="text-xs text-slate-500">RAG Pipelines</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Docker & Git/GitHub</span> <span class="text-xs text-slate-500">Containers/CI</span></li>
+                        <li class="flex items-center justify-between"><span class="text-white font-medium">Linux & Postman</span> <span class="text-xs text-slate-500">CLI & API Testing</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Developer Terminal (Easter Egg for Recruiters) -->
+        <section id="terminal" class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-terminal text-cyan-400 text-sm"></i>
+                    <h3 class="font-mono text-sm font-bold text-white uppercase tracking-wider">Interactive CLI Terminal</h3>
+                </div>
+                <span class="text-xs font-mono text-slate-500">Type 'help' for commands</span>
+            </div>
+
+            <div class="bg-dark-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl font-mono text-xs sm:text-sm">
+                <!-- Terminal Titlebar -->
+                <div class="bg-dark-800 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                        <span class="text-slate-400 text-xs ml-2">harshit@dev-box: ~</span>
+                    </div>
+                    <span class="text-slate-500 text-xs">bash (v5.2)</span>
+                </div>
+
+                <!-- Terminal Body -->
+                <div id="terminal-body" class="p-5 space-y-2 min-h-[220px] max-h-[360px] overflow-y-auto text-slate-300">
+                    <p class="text-slate-400">Welcome to Harshit's interactive developer console.</p>
+                    <p class="text-slate-400">Type <span class="text-cyan-400 font-bold">help</span> to view available commands, or try <span class="text-emerald-400">skills</span>, <span class="text-amber-400">stats</span>, <span class="text-purple-400">projects</span>, or <span class="text-cyan-300">hire</span>.</p>
+                    <div id="terminal-output"></div>
+                </div>
+
+                <!-- Terminal Input Line -->
+                <div class="px-5 py-3.5 bg-dark-800/80 border-t border-slate-800 flex items-center gap-2">
+                    <span class="text-emerald-400 font-bold">guest@harshit.dev:~$</span>
+                    <input id="terminal-input" type="text" autofocus class="flex-1 bg-transparent border-none outline-none text-white font-mono text-xs sm:text-sm placeholder-slate-600" placeholder="Type a command and press Enter..." autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience Timeline -->
+        <section id="experience" class="space-y-8">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Experience & Leadership</h2>
+                <p class="text-slate-400 text-sm mt-1">Practical industry engineering and production sprints.</p>
+            </div>
+
+            <div class="relative border-l-2 border-slate-800 ml-4 pl-6 space-y-8">
+                <!-- Experience Item -->
+                <div class="relative group">
+                    <div class="absolute -left-[33px] top-1.5 w-4 h-4 rounded-full bg-cyan-500 border-4 border-dark-900 group-hover:scale-125 transition-transform shadow-md shadow-cyan-500/50"></div>
+                    <div class="glass-card rounded-2xl p-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                            <h3 class="text-lg font-bold text-white">Frontend Web Development Intern</h3>
+                            <span class="text-xs font-mono text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded border border-cyan-400/20 w-fit">June 2025 — July 2025</span>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-300 mb-3">CodTech IT Solutions Pvt. Ltd. (Remote)</p>
+                        <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-slate-400">
+                            <li>Independently engineered 3 web applications (Real-Time Chat App, Interactive Quiz, E-learning UI) in a 2-month agile sprint.</li>
+                            <li>Built responsive, cross-browser compatible mobile-first interfaces using HTML5, CSS3, and modern JavaScript ES6+.</li>
+                            <li>Integrated REST APIs for client-server state management and practiced collaborative Git version control.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & CTA Section -->
+        <section id="contact" class="glass-card rounded-3xl p-8 sm:p-12 border border-cyan-500/20 text-center relative overflow-hidden">
+            <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-2xl mx-auto space-y-6 relative z-10">
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 inline-block">
+                    LET'S BUILD SOMETHING GREAT
+                </span>
+
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    Interested in working together?
+                </h2>
+
+                <p class="text-slate-300 text-base leading-relaxed">
+                    I am actively seeking Software Engineering Internships and Full-Time Opportunities. Whether you have an open role, an exciting project, or just want to discuss distributed systems and algorithms — my inbox is always open.
+                </p>
+
+                <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+                    <a href="mailto:mangalharsh54@gmail.com" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/30 hover:scale-105 transition-all">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>mangalharsh54@gmail.com</span>
+                    </a>
+                    <a href="https://linkedin.com/in/harshit-mangal" target="_blank" class="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm transition-all hover:scale-105">
+                        <i class="fa-brands fa-linkedin text-blue-400 text-base"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/HarshitMangal" target="_blank" class="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-sm transition-all hover:scale-105">
+                        <i class="fa-brands fa-github text-base"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500 font-mono">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© 2026 Harshit Mangal. Built for speed, systems, and craft.</p>
+            <p>Designed with Tailwind CSS & Vanilla JS. Hosted with ❤️ on GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Terminal Script -->
+    <script>
+        // Terminal Logic
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalBody = document.getElementById('terminal-body');
+
+        const commands = {
+            help: `Available commands:
+  <span class="text-cyan-400">stats</span>      - View LeetCode rating & competitive rankings
+  <span class="text-cyan-400">skills</span>     - View core technical stack
+  <span class="text-cyan-400">projects</span>   - List featured production systems
+  <span class="text-cyan-400">about</span>      - Quick bio
+  <span class="text-cyan-400">hire</span>       - Contact & recruitment status
+  <span class="text-cyan-400">cat resume</span> - Resume summary
+  <span class="text-cyan-400">clear</span>      - Clear terminal screen`,
+
+            stats: `<span class="text-amber-400 font-bold">LeetCode:</span> Knight Badge (Peak Rating: 1950+, Top 5% Global, 500+ Solved)
+<span class="text-emerald-400 font-bold">GeeksforGeeks:</span> College Rank 1 @ MBM University
+<span class="text-purple-400 font-bold">Amazon ML Challenge:</span> All India Rank 165
+<span class="text-cyan-400 font-bold">AWS Environment Hackathon:</span> 1st Place Winner`,
+
+            skills: `<span class="text-cyan-400">Languages:</span>      C++, Python, JavaScript (ES6+), Java, SQL
+<span class="text-blue-400">Full-Stack:</span>     React 18, Node.js, Express, Socket.io, Tailwind CSS
+<span class="text-purple-400">Systems & Caching:</span> Redis (<1ms), Multi-threading, OS Pipes, Concurrency
+<span class="text-emerald-400">AI & RAG:</span>          FAISS Vector Search, LLaMA 3.2 (Ollama), LangChain, Gemini`,
+
+            projects: `<span class="text-cyan-400 font-bold">1. SmartRoute:</span> Multi-vehicle route optimization engine (C++14 + Redis + WebSockets)
+<span class="text-purple-400 font-bold">2. AI Document Assistant:</span> 100% Offline RAG (LLaMA 3.2, FAISS, PyMuPDF)
+<span class="text-blue-400 font-bold">3. ShopSphere:</span> AI-driven e-commerce platform with Gemini assistant`,
+
+            about: `Harshit Mangal — IT undergraduate at MBM University (Class of 2027).
+Passionate about low-latency systems, graph algorithms, and Generative AI applications.`,
+
+            hire: `<span class="text-emerald-400 font-bold">Status:</span> Open for Software Engineering Internships and Full-Time Roles!
+<span class="text-cyan-400">Email:</span> mangalharsh54@gmail.com
+<span class="text-cyan-400">Phone:</span> +91-7413021531
+<span class="text-cyan-400">LinkedIn:</span> linkedin.com/in/harshit-mangal`,
+
+            'cat resume': `HARSHIT MANGAL | B.Tech IT, MBM University (CGPA 7.2)
+- LeetCode Knight (1950+ Rating, Top 5% Globally)
+- Amazon ML Challenge AIR 165 | AWS Hackathon Winner
+- Frontend Web Dev Intern @ CodTech IT Solutions (2025)
+- Projects: SmartRoute, ShopSphere, Offline Document RAG`,
+
+            clear: 'CLEAR'
+        };
+
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = terminalInput.value.trim().toLowerCase();
+                if (!cmd) return;
+
+                if (cmd === 'clear') {
+                    terminalOutput.innerHTML = '';
+                    terminalInput.value = '';
+                    return;
+                }
+
+                // Add prompt echo
+                const echo = document.createElement('div');
+                echo.innerHTML = `<span class="text-emerald-400">guest@harshit.dev:~$</span> <span class="text-white">${cmd}</span>`;
+                terminalOutput.appendChild(echo);
+
+                // Add response
+                const resp = document.createElement('div');
+                resp.className = 'text-slate-300 pl-4 py-1 whitespace-pre-line';
+                if (commands[cmd]) {
+                    resp.innerHTML = commands[cmd];
+                } else {
+                    resp.innerHTML = `<span class="text-rose-400">command not found: ${cmd}</span>. Type <span class="text-cyan-400 font-bold">help</span> for a list of available commands.`;
+                }
+                terminalOutput.appendChild(resp);
+
+                terminalInput.value = '';
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+        });
+
+        // Copy Email Toast
+        function copyEmail() {
+            navigator.clipboard.writeText('mangalharsh54@gmail.com').then(() => {
+                const btn = document.getElementById('copy-email-text');
+                const orig = btn.innerText;
+                btn.innerText = 'Copied to Clipboard! ✓';
+                setTimeout(() => {
+                    btn.innerText = orig;
+                }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>
