@@ -2,134 +2,192 @@ import sys
 from pathlib import Path
 import shutil
 from playwright.sync_api import sync_playwright
+import fitz
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap');
 
   @page {
     size: A4;
-    margin: 10mm 12mm 10mm 12mm;
+    margin: 8mm 12mm 8mm 12mm;
   }
 
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
   }
 
   body {
-    font-family: 'EB Garamond', 'Lora', 'Times New Roman', Georgia, serif;
-    color: #000000;
-    font-size: 9.6pt;
-    line-height: 1.28;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    font-size: 9.3pt;
+    line-height: 1.36;
     background: #ffffff;
   }
 
   a {
-    color: #000000;
+    color: #0284c7;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  a:hover {
     text-decoration: underline;
   }
 
-  /* Jake's Header */
+  /* Header */
   .header {
     text-align: center;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
   }
 
   .header h1 {
-    font-size: 23pt;
-    font-weight: 700;
-    font-variant: small-caps;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
+    font-size: 21pt;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    color: #0f172a;
+    margin-bottom: 4px;
     line-height: 1.1;
   }
 
   .contact-bar {
-    font-size: 9.2pt;
-    color: #111;
+    font-size: 9.1pt;
+    color: #475569;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px 6px;
   }
 
-  .contact-bar span {
-    margin: 0 4px;
-    color: #333;
+  .contact-bar span.sep {
+    color: #94a3b8;
+    font-weight: 300;
   }
 
-  /* Jake's Section Title */
+  /* Section Title */
   .section-title {
-    font-size: 11.2pt;
-    font-weight: 700;
-    font-variant: small-caps;
-    letter-spacing: 0.4px;
-    color: #000000;
-    border-bottom: 0.8px solid #000000;
-    padding-bottom: 1px;
-    margin-top: 6px;
-    margin-bottom: 3px;
-  }
-
-  /* Subheadings & Project Headings */
-  .item {
+    font-size: 10.2pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #0f172a;
+    border-bottom: 1.5px solid #0284c7;
+    padding-bottom: 2px;
+    margin-top: 7px;
     margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .item-header {
+  /* Item Layouts */
+  .item {
+    margin-bottom: 5px;
+  }
+
+  .item-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    font-size: 9.7pt;
   }
 
   .item-title {
     font-weight: 700;
-    color: #000000;
+    font-size: 9.7pt;
+    color: #0f172a;
   }
 
   .item-subtitle {
-    font-style: italic;
-    color: #111;
+    font-weight: 500;
+    color: #334155;
     font-size: 9.2pt;
   }
 
   .item-date, .item-location {
-    font-size: 9.2pt;
-    color: #111;
+    font-size: 8.8pt;
+    color: #64748b;
+    font-weight: 500;
+    white-space: nowrap;
   }
 
-  .tech-inline {
+  .link-tag {
+    font-size: 8.4pt;
+    font-weight: 600;
+    color: #0284c7;
+    background: #f0f9ff;
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid #bae6fd;
+    margin-left: 4px;
+  }
+
+  .tech-stack {
+    font-size: 8.8pt;
+    color: #475569;
     font-style: italic;
-    font-weight: 400;
+    margin-top: 1px;
+    margin-bottom: 2px;
   }
 
   ul {
-    list-style-type: disc;
-    margin-left: 17px;
-    margin-top: 1.5px;
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 2px;
   }
 
   li {
-    margin-bottom: 1.2px;
-    font-size: 9.3pt;
-    color: #111;
-    line-height: 1.26;
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 2px;
+    font-size: 9.1pt;
+    color: #1e293b;
+    line-height: 1.34;
   }
 
-  .skills-list {
-    font-size: 9.3pt;
-    line-height: 1.32;
-    padding-left: 2px;
+  li::before {
+    content: "•";
+    position: absolute;
+    left: 3px;
+    top: -0.5px;
+    color: #0284c7;
+    font-size: 11pt;
+  }
+
+  /* Skills Section */
+  .skills-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5px;
+    font-size: 9.1pt;
   }
 
   .skills-row {
-    margin-bottom: 1.5px;
+    display: flex;
+    line-height: 1.34;
   }
 
   .skills-label {
     font-weight: 700;
+    color: #0f172a;
+    min-width: 140px;
+  }
+
+  .skills-val {
+    color: #334155;
+    flex: 1;
+  }
+
+  /* Achievements */
+  .ach-title {
+    font-weight: 700;
+    color: #0f172a;
   }
 </style>
 </head>
@@ -139,16 +197,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <div class="header">
     <h1>Harshit Mangal</h1>
     <div class="contact-bar">
-      +91-7413021531
-      <span>|</span>
+      <span>+91-7413021531</span>
+      <span class="sep">|</span>
       <a href="mailto:mangalharsh54@gmail.com">mangalharsh54@gmail.com</a>
-      <span>|</span>
+      <span class="sep">|</span>
       <a href="https://harshitmangal.github.io/portfolio/">Portfolio</a>
-      <span>|</span>
+      <span class="sep">|</span>
       <a href="https://linkedin.com/in/harshit-mangal">LinkedIn</a>
-      <span>|</span>
+      <span class="sep">|</span>
       <a href="https://github.com/HarshitMangal">GitHub</a>
-      <span>|</span>
+      <span class="sep">|</span>
       <a href="https://leetcode.com/u/Harshit_mangal/">LeetCode</a>
     </div>
   </div>
@@ -156,97 +214,111 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <!-- Education -->
   <div class="section-title">Education</div>
   <div class="item">
-    <div class="item-header">
+    <div class="item-row">
       <span class="item-title">MBM University</span>
-      <span class="item-location">Jodhpur, Rajasthan</span>
-    </div>
-    <div class="item-header">
-      <span class="item-subtitle">Bachelor of Technology in Information Technology — CGPA: 7.2</span>
       <span class="item-date">Aug. 2023 – May 2027</span>
+    </div>
+    <div class="item-row">
+      <span class="item-subtitle">Bachelor of Technology in Information Technology — <strong>CGPA: 7.2</strong></span>
+      <span class="item-location">Jodhpur, Rajasthan</span>
     </div>
   </div>
 
   <!-- Technical Skills -->
   <div class="section-title">Technical Skills</div>
-  <div class="skills-list">
-    <div class="skills-row"><span class="skills-label">Languages:</span> C++, Python, C, Java, JavaScript, SQL</div>
-    <div class="skills-row"><span class="skills-label">Web Development:</span> HTML, CSS, React, Node.js, Express, Tailwind CSS, RESTful APIs</div>
-    <div class="skills-row"><span class="skills-label">Databases & Tools:</span> MongoDB, MySQL, SQLite, Git, GitHub, Postman, Linux</div>
-    <div class="skills-row"><span class="skills-label">Core Concepts:</span> Data Structures & Algorithms, OOPs, DBMS, Operating Systems, Computer Networks</div>
+  <div class="skills-box">
+    <div class="skills-row">
+      <span class="skills-label">Languages:</span>
+      <span class="skills-val">C++, Python, C, Java, JavaScript, SQL</span>
+    </div>
+    <div class="skills-row">
+      <span class="skills-label">Web Development:</span>
+      <span class="skills-val">HTML5, CSS3, React, Node.js, Express, Tailwind CSS, RESTful APIs</span>
+    </div>
+    <div class="skills-row">
+      <span class="skills-label">Databases & Tools:</span>
+      <span class="skills-val">MongoDB, MySQL, SQLite, Git, GitHub, Postman, Linux</span>
+    </div>
+    <div class="skills-row">
+      <span class="skills-label">Core Fundamentals:</span>
+      <span class="skills-val">Data Structures & Algorithms, OOPs, DBMS, Operating Systems, Computer Networks</span>
+    </div>
   </div>
 
   <!-- Projects -->
   <div class="section-title">Projects</div>
 
   <div class="item">
-    <div class="item-header">
-      <span>
-        <strong class="item-title">ShopSphere</strong>
-        <span> | </span>
-        <span class="tech-inline">React, Node.js, Express, MongoDB, Redux, Razorpay</span>
-      </span>
+    <div class="item-row">
+      <div>
+        <span class="item-title">ShopSphere — E-Commerce Web Application</span>
+        <a href="https://flipcart-clone-mu.vercel.app" class="link-tag">Live Demo ↗</a>
+        <a href="https://github.com/HarshitMangal/Flipcart-Clone" class="link-tag">GitHub ↗</a>
+      </div>
       <span class="item-date">2026</span>
     </div>
+    <div class="tech-stack">React, Node.js, Express, MongoDB, Redux, Razorpay</div>
     <ul>
-      <li>Developed a full-stack e-commerce web application featuring user authentication, product search, filtering, and shopping cart management.</li>
-      <li>Implemented RESTful APIs for catalog and order handling; integrated Razorpay payment gateway for secure checkout processing.</li>
+      <li>Built a responsive full-stack e-commerce web platform featuring user authentication, product search, category filtering, and shopping cart management.</li>
+      <li>Implemented RESTful backend APIs for catalog and order workflows; integrated Razorpay payment gateway for secure checkout processing.</li>
     </ul>
   </div>
 
   <div class="item">
-    <div class="item-header">
-      <span>
-        <strong class="item-title">AI Document Assistant</strong>
-        <span> | </span>
-        <span class="tech-inline">Python, Streamlit, Ollama, FAISS, PyMuPDF</span>
-      </span>
+    <div class="item-row">
+      <div>
+        <span class="item-title">AI Document Assistant — Offline Q&A System</span>
+        <a href="https://github.com/HarshitMangal/AI-Document-Chatbot" class="link-tag">GitHub ↗</a>
+      </div>
       <span class="item-date">2026</span>
     </div>
+    <div class="tech-stack">Python, Streamlit, Ollama, FAISS, PyMuPDF</div>
     <ul>
-      <li>Built an interactive local document Q&A tool allowing users to upload PDF documents and query contents offline using local LLMs.</li>
-      <li>Extracted text with PyMuPDF, generated vector embeddings, and implemented fast similarity search using FAISS for accurate retrieval.</li>
+      <li>Engineered an interactive local document Q&A assistant allowing users to upload PDF documents and ask queries in natural language completely offline.</li>
+      <li>Extracted document text with PyMuPDF, generated vector embeddings, and implemented fast similarity search using FAISS for accurate answer retrieval.</li>
     </ul>
   </div>
 
   <div class="item">
-    <div class="item-header">
-      <span>
-        <strong class="item-title">Wanderlust</strong>
-        <span> | </span>
-        <span class="tech-inline">React, Node.js, Express, MongoDB, Cloudinary</span>
-      </span>
+    <div class="item-row">
+      <div>
+        <span class="item-title">Wanderlust — Rental Property SaaS</span>
+        <a href="https://major-project-wht3.onrender.com" class="link-tag">Live Demo ↗</a>
+        <a href="https://github.com/HarshitMangal/major_project" class="link-tag">GitHub ↗</a>
+      </div>
       <span class="item-date">2025</span>
     </div>
+    <div class="tech-stack">React, Node.js, Express, MongoDB, Cloudinary</div>
     <ul>
-      <li>Built a responsive rental property listing web application with user authentication, property creation, and user review system.</li>
-      <li>Integrated Cloudinary for optimized media management and designed clean MVC architecture with MongoDB for data persistence.</li>
+      <li>Built an Airbnb-style accommodation booking platform with user authentication, property listings, and an interactive review system.</li>
+      <li>Integrated Cloudinary for image optimization and cloud storage; structured clean MVC architecture with MongoDB for data persistence.</li>
     </ul>
   </div>
 
   <!-- Experience -->
   <div class="section-title">Experience</div>
   <div class="item">
-    <div class="item-header">
+    <div class="item-row">
       <span class="item-title">Frontend Web Development Intern</span>
       <span class="item-date">June 2025 – July 2025</span>
     </div>
-    <div class="item-header">
+    <div class="item-row">
       <span class="item-subtitle">CodTech IT Solutions Pvt. Ltd.</span>
       <span class="item-location">Remote</span>
     </div>
     <ul>
-      <li>Designed and developed responsive, cross-browser web interfaces for user-facing applications using HTML5, CSS3, JavaScript, and React.</li>
-      <li>Collaborated with senior developers using Git version control, integrated backend REST APIs, and improved page load performance.</li>
+      <li>Designed and developed responsive, mobile-first web interfaces for user-facing applications using HTML5, CSS3, JavaScript, and React.</li>
+      <li>Collaborated using Git version control, integrated backend REST APIs, and optimized frontend components for enhanced performance.</li>
     </ul>
   </div>
 
   <!-- Achievements -->
   <div class="section-title">Achievements</div>
   <ul>
-    <li><strong><a href="https://leetcode.com/u/Harshit_mangal/">LeetCode Knight</a>:</strong> Rating 1905–1931 (Top 3.8% globally, 1350+ DSA problems solved).</li>
-    <li><strong><a href="https://auth.geeksforgeeks.org/user/harshitmangal">GeeksforGeeks College Rank 1</a>:</strong> Ranked #1 in MBM University with 1100+ coding problems solved.</li>
-    <li><strong><a href="https://www.wemakedevs.org/certificates/VA2N7YMWDX">Winner — Environmental Hacks</a>:</strong> Winner at national hackathon organized by WeMakeDevs & AWS.</li>
-    <li><strong>Amazon ML Challenge:</strong> Secured All India Rank 165 competing against teams across India.</li>
+    <li><span class="ach-title"><a href="https://leetcode.com/u/Harshit_mangal/">LeetCode Knight</a>:</span> Earned Knight Badge with peak rating 1905–1931 (Top 3.8% globally, 1350+ DSA problems solved).</li>
+    <li><span class="ach-title"><a href="https://auth.geeksforgeeks.org/user/harshitmangal">GeeksforGeeks College Rank 1</a>:</span> Ranked #1 across MBM University with 1100+ coding problems solved.</li>
+    <li><span class="ach-title"><a href="https://www.wemakedevs.org/certificates/VA2N7YMWDX">Winner — Environmental Hacks</a>:</span> 1st Place Winner at national hackathon organized by WeMakeDevs & AWS.</li>
+    <li><span class="ach-title">Amazon ML Challenge:</span> Secured All India Rank 165 competing against teams nationwide.</li>
   </ul>
 
   <!-- Certifications -->
@@ -264,8 +336,9 @@ def generate_pdf():
     dest_portfolio = Path("C:/Users/Lenovo/OneDrive/Desktop/harshit-portfolio/Harshit_Mangal_Resume.pdf")
     dest_portfolio_latest = Path("C:/Users/Lenovo/OneDrive/Desktop/harshit-portfolio/Harshit_Mangal_Resume_Latest.pdf")
     dest_desktop = Path("C:/Users/Lenovo/OneDrive/Desktop/Harshit_Mangal_Resume.pdf")
+    preview_img = Path("C:/Users/Lenovo/OneDrive/Desktop/harshit-portfolio/resume_preview.png")
 
-    print("Generating Jake's Resume PDF...")
+    print("Generating modern executive resume PDF...")
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -280,11 +353,19 @@ def generate_pdf():
         )
         browser.close()
 
-    # Also copy to Latest and Desktop
     shutil.copy(dest_portfolio, dest_portfolio_latest)
     shutil.copy(dest_portfolio, dest_desktop)
 
-    print(f"SUCCESS! Jake's Resume generated and copied to all locations!")
+    # Render image preview to inspect visual quality
+    doc = fitz.open(str(dest_portfolio))
+    print(f"Total pages: {len(doc)}")
+    for page_idx in range(len(doc)):
+        page = doc[page_idx]
+        pix = page.get_pixmap(dpi=150)
+        pix.save(str(preview_img))
+        print(f"Saved preview of page {page_idx+1} to {preview_img}")
+
+    print("SUCCESS! Generated executive resume!")
 
 if __name__ == "__main__":
     generate_pdf()
